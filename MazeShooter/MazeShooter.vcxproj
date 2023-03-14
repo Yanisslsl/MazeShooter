@@ -127,14 +127,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MazeGenerator.cpp" />
+    <ClCompile Include="AssetManager.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="Maze.cpp" />
     <ClCompile Include="MazeShooter.cpp" />
+    <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MazeGenerator.h" />
+    <ClInclude Include="AssetManager.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="Maze.h" />
+    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,29 +1,15 @@
 #include <SFML/Graphics.hpp>
-#include "MazeGenerator.h";
+#include "Maze.h";
+#include "GameManager.h"
 
 int main()
 {
     srand(clock());
 
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "My window");
-    MazeGenerator maze(40, 25, 3);
+    GameManager* gameManager = GameManager::GetInstance();
+    bool success = gameManager->Run("My Sokoban Game", Vec2i(1920, 1080));
 
-
-    // run the program as long as the window is open
-    while (window.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-        maze.GenerateMaze(window);
-        window.display();
-       
-    }
+    return success ? EXIT_SUCCESS : EXIT_FAILURE;
 
     return 0;
 }

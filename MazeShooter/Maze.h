@@ -6,22 +6,21 @@ using namespace std;
 
 
 #pragma once
-class MazeGenerator
+class Maze
 {
 
 public:
-	MazeGenerator(int nWidth, int nHeight, int nPathWidth = 3);
+	Maze(int nWidth, int nHeight, int nPathWidth = 3);
 	//~MazeGenerator();
 
-	void GenerateMaze(sf::RenderWindow& window);
-	void PrintMaze();
+	void Load();
+	void Draw(sf::RenderWindow& window);
 private:
 	int  m_nMazeWidth;
 	int  m_nMazeHeight;
 	int* m_maze;
 
 
-	// Some bit fields for convenience
 	enum
 	{
 		CELL_PATH_N = 0x01,
@@ -31,8 +30,6 @@ private:
 		CELL_VISITED = 0x10,
 	};
 
-
-	// Algorithm variables
 	int  m_nVisitedCells;
 	stack<pair<int, int>> m_stack;	// (x, y) coordinate pairs
 	int  m_nPathWidth;

@@ -1,11 +1,11 @@
-#include "MazeGenerator.h"
+#include "Maze.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <stack>
 using namespace std;
 #pragma once
 
-MazeGenerator::MazeGenerator(int nWidth, int nHeight, int nPathWidth)
+Maze::Maze(int nWidth, int nHeight, int nPathWidth)
 {
 	m_nMazeWidth = nWidth;
 	m_nMazeHeight = nHeight;
@@ -18,7 +18,7 @@ MazeGenerator::MazeGenerator(int nWidth, int nHeight, int nPathWidth)
 
 }
 
-void MazeGenerator::GenerateMaze(sf::RenderWindow& window) {
+void Maze::Load() {
 
 	//lambda function to calculate offset
 	auto offset = [&](int x, int y)
@@ -26,7 +26,7 @@ void MazeGenerator::GenerateMaze(sf::RenderWindow& window) {
 		return (m_stack.top().second + y) * m_nMazeWidth + (m_stack.top().first + x);
 	};
 
-	if (m_nVisitedCells < m_nMazeWidth * m_nMazeHeight) {
+	while (m_nVisitedCells < m_nMazeWidth * m_nMazeHeight) {
 		// 1. Create a set of unvisited neighboors
 		vector<int> neighboors;
 		
@@ -44,9 +44,6 @@ void MazeGenerator::GenerateMaze(sf::RenderWindow& window) {
 			neighboors.push_back(3);
 
 		if (!neighboors.empty()) {
-
-
-
 			// choose randomly an avaible neighboor
 			int next_cell_dir = neighboors[rand() % neighboors.size()];
 
@@ -76,8 +73,6 @@ void MazeGenerator::GenerateMaze(sf::RenderWindow& window) {
 				m_stack.push(make_pair((m_stack.top().first - 1), (m_stack.top().second + 0)));
 				break;
 			}
-
-
 			
 			m_nVisitedCells++;
 
@@ -86,7 +81,9 @@ void MazeGenerator::GenerateMaze(sf::RenderWindow& window) {
 			m_stack.pop();
 		}
 	}
+}
 
+void Maze::Draw(sf::RenderWindow& window) {
 	window.clear(sf::Color::Black);
 
 	//draw for each lines and columns in the maze dimensions
@@ -105,7 +102,7 @@ void MazeGenerator::GenerateMaze(sf::RenderWindow& window) {
 					}
 					else {
 						sf::RectangleShape square(sf::Vector2f(10, 10));
-						square.setPosition(sf::Vector2f((float)x * (m_nPathWidth + 1) * 10 + px * 10, (float)y * 10* (m_nPathWidth + 1) + py * 10));
+						square.setPosition(sf::Vector2f((float)x * (m_nPathWidth + 1) * 10 + px * 10, (float)y * 10 * (m_nPathWidth + 1) + py * 10));
 						square.setFillColor(sf::Color::Blue);
 						window.draw(square);
 					}
@@ -117,7 +114,7 @@ void MazeGenerator::GenerateMaze(sf::RenderWindow& window) {
 			{
 				if (m_maze[y * m_nMazeWidth + x] & CELL_PATH_S) {
 					sf::RectangleShape square(sf::Vector2f(10, 10));
-					square.setPosition(sf::Vector2f((float)x * (m_nPathWidth + 1) * 10  + p * 10, (float)y * (m_nPathWidth + 1) * 10 + m_nPathWidth * 10));
+					square.setPosition(sf::Vector2f((float)x * (m_nPathWidth + 1) * 10 + p * 10, (float)y * (m_nPathWidth + 1) * 10 + m_nPathWidth * 10));
 					square.setFillColor(sf::Color::White);
 					window.draw(square);
 				}
@@ -132,9 +129,6 @@ void MazeGenerator::GenerateMaze(sf::RenderWindow& window) {
 
 		}
 	}
-}
-
-void MazeGenerator::PrintMaze() {
 }
 
 

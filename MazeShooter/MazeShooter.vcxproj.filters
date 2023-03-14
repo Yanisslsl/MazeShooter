@@ -1,36 +1,78 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Fichiers de ressources">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="core">
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="include\Managers">
+      <UniqueIdentifier>{4163e50a-07ed-4376-b9f3-86742f5ad9ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Models">
+      <UniqueIdentifier>{907027b5-d6ae-4731-a89a-1a556977c1da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Engine">
       <UniqueIdentifier>{30ad5ca8-824f-482d-bae9-41d9f0bd66fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\Managers">
+      <UniqueIdentifier>{0ae9cdf3-6ca2-4c3c-8e8d-78967448d605}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Models">
+      <UniqueIdentifier>{dcdac59d-e9ea-4420-bb3d-a8908ce47934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine">
+      <UniqueIdentifier>{fd0699dc-f8a6-4865-985f-2ca8582867a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MazeShooter.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="MazeGenerator.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>src\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>src\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetManager.cpp">
+      <Filter>src\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>src\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Maze.cpp">
+      <Filter>src\Models</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MazeGenerator.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="Vector2.h">
+      <Filter>include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>include\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>include\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>include\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>include\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Maze.h">
+      <Filter>include\Models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
