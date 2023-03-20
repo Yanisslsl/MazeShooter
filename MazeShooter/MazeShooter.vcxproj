@@ -127,23 +127,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="LevelManager.cpp" />
-    <ClCompile Include="Maze.cpp" />
+    <ClCompile Include="src\AssetManager.cpp" />
+    <ClCompile Include="src\GameManager.cpp" />
+    <ClCompile Include="src\LevelManager.cpp" />
+    <ClCompile Include="src\Maze.cpp" />
     <ClCompile Include="MazeShooter.cpp" />
-    <ClCompile Include="WindowManager.cpp" />
+    <ClCompile Include="src\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="GameManager.h" />
-    <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="Maze.h" />
-    <ClInclude Include="Vector2.h" />
-    <ClInclude Include="WindowManager.h" />
+    <ClInclude Include="include\AssetManager.h" />
+    <ClInclude Include="include\GameManager.h" />
+    <ClInclude Include="include\LevelManager.h" />
+    <ClInclude Include="include\Maze.h" />
+    <ClInclude Include="include\Vector2.h" />
+    <ClInclude Include="include\WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

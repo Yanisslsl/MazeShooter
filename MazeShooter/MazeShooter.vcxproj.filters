@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers de ressources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="include">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
@@ -31,24 +27,28 @@
     <Filter Include="src\Engine">
       <UniqueIdentifier>{fd0699dc-f8a6-4865-985f-2ca8582867a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MazeShooter.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="GameManager.cpp">
+    <ClCompile Include="src\GameManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="WindowManager.cpp">
+    <ClCompile Include="src\WindowManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="AssetManager.cpp">
+    <ClCompile Include="src\AssetManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="LevelManager.cpp">
+    <ClCompile Include="src\LevelManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Maze.cpp">
+    <ClCompile Include="src\Maze.cpp">
       <Filter>src\Models</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,22 +56,22 @@
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Vector2.h">
+    <ClInclude Include="include\Vector2.h">
       <Filter>include\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
+    <ClInclude Include="include\GameManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="WindowManager.h">
+    <ClInclude Include="include\WindowManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="AssetManager.h">
+    <ClInclude Include="include\AssetManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="LevelManager.h">
+    <ClInclude Include="include\LevelManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Maze.h">
+    <ClInclude Include="include\Maze.h">
       <Filter>include\Models</Filter>
     </ClInclude>
   </ItemGroup>

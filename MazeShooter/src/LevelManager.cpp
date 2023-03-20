@@ -1,6 +1,6 @@
-#include "LevelManager.h"
+#include "../include/LevelManager.h"
+#include "../include/Maze.h";
 #include <iostream>
-#include "Maze.h";
 
 
 LevelManager* LevelManager::m_instance = nullptr;
@@ -41,19 +41,6 @@ Maze* LevelManager::getCurrent()
 	return m_mazes.back();
 }
 
-//Maze LevelManager::getNext()
-//{
-//	if (current_index < m_mazes.size() - 1)
-//	{
-//		current_index++;
-//	}
-//	return m_mazes[current_index];
-//}
-//
-//Maze LevelManager::getLast()
-//{
-//	return m_mazes[current_index - 1];
-//}
 
 Maze *LevelManager::create() {
 	auto maze = new Maze(40, 25, 3);

@@ -1,7 +1,7 @@
-#include "GameManager.h"
-#include "WindowManager.h"
-#include "AssetManager.h"
-#include "LevelManager.h"
+#include "../include/GameManager.h"
+#include "../include/WindowManager.h"
+#include "../include/AssetManager.h"
+#include "../include/LevelManager.h"
 #include <iostream>
 
 GameManager* GameManager::m_instance = nullptr;
@@ -82,28 +82,24 @@ bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 
 bool GameManager::LoadResources()
 {
-	//bool success = true;
-	//AssetManager* assetManager = AssetManager::GetInstance();
+	bool success = true;
+	AssetManager* assetManager = AssetManager::GetInstance();
 
-	//// Load fonts
+	// Load fonts
 	//success &= assetManager->LoadFont("arial.ttf", "arial");
 
-	//// Load textures
-	//success &= assetManager->LoadTexture("wall.png", "wall");
-	//success &= assetManager->LoadTexture("dock.png", "dock");
-	//success &= assetManager->LoadTexture("box.png", "box");
-	//success &= assetManager->LoadTexture("box_docked.png", "box_docked");
-	//success &= assetManager->LoadTexture("player.png", "player");
+	// Load textures
+	success &= assetManager->LoadTexture("idle.png", "wall");
 
-	//if (success)
-	//{
-	//	std::cout << ">> Loading resources was successful !" << std::endl;
-	//}
-	//else
-	//{
-	//	std::cout << ">> Error while loading resources !" << std::endl;
-	//	return false;
-	//}
+	if (success)
+	{
+		std::cout << ">> Loading resources was successful !" << std::endl;
+	}
+	else
+	{
+		std::cout << ">> Error while loading resources !" << std::endl;
+		return false;
+	}
 
 	return true;
 }

@@ -1,4 +1,4 @@
-#include "Maze.h"
+#include "../include/Maze.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <stack>
