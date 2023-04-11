@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>;
-#include "Maze.h";
+#include "../models/Level.h";
 #include <vector>
 
 class LevelManager
@@ -12,15 +12,15 @@ public:
 	void operator=(const LevelManager& _other) = delete;
 	static LevelManager* GetInstance();
 
-	Maze* getCurrent();
-	Maze* getNext();
-	Maze* getLast();
-	Maze* create();
+	Level* getCurrent();
+	Level* getNext();
+	Level* getLast();
+	Level* create();
 	void Load();
 	void RenderLevel(sf::RenderWindow& window);
 private:
 	LevelManager();
 	static LevelManager* m_instance;
-	std::vector<Maze*> m_mazes;
+	std::vector<Level*> m_levels;
 	int current_index;
 };

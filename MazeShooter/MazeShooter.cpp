@@ -1,12 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include "./include/GameManager.h"
+#include "./include/managers/GameManager.h"
 
 int main()
 {
-    srand(clock());
 
     GameManager* gameManager = GameManager::GetInstance();
-    bool success = gameManager->Run("My Sokoban Game", Vec2i(1920, 1080));
+    bool success = gameManager->Run("My Sokoban Game", Vec2i(1600, 800));
 
     return success ? EXIT_SUCCESS : EXIT_FAILURE;
 

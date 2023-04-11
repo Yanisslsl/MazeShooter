@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/WindowManager.h"
+#include "../../include/managers/WindowManager.h"
 
 WindowManager* WindowManager::m_instance = nullptr;
 

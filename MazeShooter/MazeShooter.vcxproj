@@ -70,6 +70,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -127,23 +130,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\AssetManager.cpp" />
-    <ClCompile Include="src\GameManager.cpp" />
-    <ClCompile Include="src\LevelManager.cpp" />
-    <ClCompile Include="src\Maze.cpp" />
+    <ClCompile Include="src\models\Player.cpp" />
+    <ClCompile Include="src\models\Entity.cpp" />
+    <ClCompile Include="src\managers\InputManager.cpp" />
+    <ClCompile Include="src\managers\AssetManager.cpp" />
+    <ClCompile Include="src\managers\GameManager.cpp" />
+    <ClCompile Include="src\managers\LevelManager.cpp" />
+    <ClCompile Include="src\models\Level.cpp" />
     <ClCompile Include="MazeShooter.cpp" />
-    <ClCompile Include="src\WindowManager.cpp" />
+    <ClCompile Include="src\managers\WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AssetManager.h" />
-    <ClInclude Include="include\GameManager.h" />
-    <ClInclude Include="include\LevelManager.h" />
-    <ClInclude Include="include\Maze.h" />
-    <ClInclude Include="include\Vector2.h" />
-    <ClInclude Include="include\WindowManager.h" />
+    <ClInclude Include="include\models\Entity.h" />
+    <ClInclude Include="include\managers\AssetManager.h" />
+    <ClInclude Include="include\managers\GameManager.h" />
+    <ClInclude Include="include\managers\LevelManager.h" />
+    <ClInclude Include="include\models\Level.h" />
+    <ClInclude Include="include\utils\Vector2.h" />
+    <ClInclude Include="include\managers\WindowManager.h" />
+    <ClInclude Include="include\managers\InputManager.h" />
+    <ClInclude Include="include\models\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

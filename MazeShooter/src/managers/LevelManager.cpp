@@ -1,5 +1,5 @@
-#include "../include/LevelManager.h"
-#include "../include/Maze.h";
+#include "../../include/managers/LevelManager.h"
+#include "../../include/models/Level.h";
 #include <iostream>
 
 
@@ -17,7 +17,7 @@ LevelManager* LevelManager::GetInstance()
 
 LevelManager::LevelManager()
 {
-	m_mazes = {};
+	m_levels = {};
 	current_index = 0;
 }
 
@@ -26,24 +26,24 @@ LevelManager::~LevelManager()
 	if (m_instance != nullptr)
 	{
 		delete m_instance;
-		for (Maze* maze : m_mazes) {
+		for (Level* maze : m_levels) {
 			delete maze;
 		}
 	}
 }
 
-Maze* LevelManager::getCurrent()
+Level* LevelManager::getCurrent()
 {
-	if (m_mazes.empty())
+	if (m_levels.empty())
 	{
-		m_mazes.push_back(LevelManager::create());
+		m_levels.push_back(LevelManager::create());
 	}
-	return m_mazes.back();
+	return m_levels.back();
 }
 
 
-Maze *LevelManager::create() {
-	auto maze = new Maze(40, 25, 3);
+Level *LevelManager::create() {
+	auto maze = new Level(40, 20, 3);
 	return maze;
 }
 

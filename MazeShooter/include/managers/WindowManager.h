@@ -2,7 +2,7 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
-#include "Vector2.h"
+#include "../utils/Vector2.h"
 
 class WindowManager
 {

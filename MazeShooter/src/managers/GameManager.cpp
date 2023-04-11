@@ -1,7 +1,10 @@
-#include "../include/GameManager.h"
-#include "../include/WindowManager.h"
-#include "../include/AssetManager.h"
-#include "../include/LevelManager.h"
+#include "../../include/managers/GameManager.h"
+#include "../../include/managers/WindowManager.h"
+#include "../../include/managers/AssetManager.h"
+#include "../../include/managers/LevelManager.h"
+#include "../../include/managers/InputManager.h"
+#include "../../include/utils/Vector2.h"
+#include "../../include/models/Player.h"
 #include <iostream>
 
 GameManager* GameManager::m_instance = nullptr;
@@ -52,30 +55,41 @@ bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 	if (levelManager == nullptr)
 		return false;
 	levelManager->Load();
+	auto player = levelManager->getCurrent()->getPlayer();
+	auto level = levelManager->getCurrent();
+	auto position = player->GetPosition();
 
+
+	InputManager* inputManager = InputManager::GetInstance();
 
 	
 	sf::View view(sf::FloatRect(0.f, 0.f, _size.x, _size.y));
+	sf::Clock deltaTime;
 
+
+
+	level->DrawLevel();
 	// GAME LOOP
 	while (window->isOpen())
 	{
+		float dt = deltaTime.restart().asSeconds();
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
 			switch (event.type)
 			{
-			case sf::Event::Closed:
-				window->close();
-				break;
+				case sf::Event::Closed:
+					window->close();
+					break;
+				case sf::Event::KeyPressed:
+					inputManager->update(event.key.code, dt);
 			}
 		}
-
-		window->clear();
 		window->setView(view);
 		levelManager->RenderLevel(*window);
 		window->display();
 	}
+
 
 	return true;
 }
@@ -89,7 +103,7 @@ bool GameManager::LoadResources()
 	//success &= assetManager->LoadFont("arial.ttf", "arial");
 
 	// Load textures
-	success &= assetManager->LoadTexture("idle.png", "wall");
+	success &= assetManager->LoadTexture("idle.png", "player");
 
 	if (success)
 	{

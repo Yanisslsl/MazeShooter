@@ -36,43 +36,61 @@
     <ClCompile Include="MazeShooter.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\GameManager.cpp">
+    <ClCompile Include="src\managers\GameManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="src\WindowManager.cpp">
+    <ClCompile Include="src\managers\WindowManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="src\AssetManager.cpp">
+    <ClCompile Include="src\managers\AssetManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="src\LevelManager.cpp">
+    <ClCompile Include="src\managers\LevelManager.cpp">
       <Filter>src\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="src\Maze.cpp">
+    <ClCompile Include="src\models\Level.cpp">
       <Filter>src\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\InputManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\Entity.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\models\Player.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Vector2.h">
+    <ClInclude Include="include\utils\Vector2.h">
       <Filter>include\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="include\GameManager.h">
+    <ClInclude Include="include\managers\GameManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="include\WindowManager.h">
+    <ClInclude Include="include\managers\WindowManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="include\AssetManager.h">
+    <ClInclude Include="include\managers\AssetManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="include\LevelManager.h">
+    <ClInclude Include="include\managers\LevelManager.h">
       <Filter>include\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="include\Maze.h">
+    <ClInclude Include="include\models\Level.h">
       <Filter>include\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="include\managers\InputManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\models\Entity.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\models\Player.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

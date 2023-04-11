@@ -1,4 +1,4 @@
-#include "../include/AssetManager.h"
+#include "../../include/managers/AssetManager.h"
 
 #define ASSETS_PATH "assets/"
 
