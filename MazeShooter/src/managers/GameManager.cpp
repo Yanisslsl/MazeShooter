@@ -104,6 +104,8 @@ bool GameManager::LoadResources()
 
 	// Load textures
 	success &= assetManager->LoadTexture("idle.png", "player");
+	success &= assetManager->LoadTexture("bullet.png", "bullet");
+
 
 	if (success)
 	{

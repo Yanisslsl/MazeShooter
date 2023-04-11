@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stack>
 #include "../../include/models/Player.h"
+#include "../../include/models/Bullet.h"
 #pragma once
 
 Level::Level(int nWidth, int nHeight, int nPathWidth)
@@ -21,7 +22,7 @@ Level::Level(int nWidth, int nHeight, int nPathWidth)
 
 
 void Level::InitializeEntities() {
-	Player* player = new Player(Vec2f(0, 0));
+	Player* player = new Player(Vec2f(10, 10));
 	player->SetSize(Vec2f(1.0f, 1.0f));
 	m_entities["player"] = player;
 }
@@ -189,5 +190,17 @@ Level::Cell* Level::getRelativePositionInLevel() {
 	auto d = m_levelMap[y * m_nLevelWidth + x];
 	d->currentLocation = Vec2f(x * 40, y * 40);
 	return d;
+}
+
+void Level::update(Vec2f playerPosition, float playerRotation) {
+	auto player = getPlayer();
+	player->updateMovement(Vec2f(playerPosition.x, playerPosition.y), playerRotation);
+}
+
+void Level::addBullet() {
+	auto player = getPlayer();
+	auto bullet = new Bullet(Vec2f(10, 10));
+	bullet->SetSize(Vec2f(1.0f, 1.0f));
+	m_entities["bullet"] = bullet;
 }
 

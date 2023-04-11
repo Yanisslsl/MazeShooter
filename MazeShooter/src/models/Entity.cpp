@@ -46,7 +46,6 @@ void Entity::SetSprite(const std::string& _assetId, const float scale, const Vec
 		m_sprite->setTexture(*texture);
 		m_sprite->setScale(Vec2f(scale, scale));
 		sf::Vector2u textureSize = texture->getSize();
-		std::cout << "TEXTUTRE " << textureSize.x << std::endl;
 		m_sprite->setOrigin(textureSize.x /2 , textureSize.y /2);
 
 
@@ -92,19 +91,12 @@ void Entity::updateMovement(const Vec2f& acceleration, float rotation)
 	auto playerPosition = GetPosition();
 	float pX = playerPosition.x + acceleration.x;
 	float pY = playerPosition.y + acceleration.y;
-	Level* level = LevelManager::GetInstance()->getCurrent();
-	auto relativePosition = level->getRelativePositionInLevel();
 
 	if (isInSameCell(Vec2f(pX, pY))) {
-		auto currentLocation = relativePosition->currentLocation;
-		SetRotation(rotation);
-		SetPosition(Vec2f(pX, pY));
+		move(Vec2f(pX, pY), rotation);
 	}
-	else {
-		if (checkCollision(Vec2f(pX, pY), rotation)) {
-			SetRotation(rotation);
-			SetPosition(Vec2f(pX, pY));
-		}
+	else if (checkCollision(Vec2f(pX, pY), rotation)) {
+		move(Vec2f(pX, pY), rotation);
 	}
 }
 
@@ -112,13 +104,13 @@ bool Entity::isInSameCell(const Vec2f& position)
 {
 	Level* level = LevelManager::GetInstance()->getCurrent();
 	auto currentCellPosition = level->getRelativePositionInLevel()->currentLocation;
-	if (position.x > currentCellPosition.x + 35) {
+	if (position.x > currentCellPosition.x + 30) {
 		return false;
 	}
 	else if (position.x < currentCellPosition.x) {
 		return false;
 	}
-	else if (position.y > currentCellPosition.y + 35) {
+	else if (position.y > currentCellPosition.y + 30) {
 		return false;
 	}
 	else if (position.y < currentCellPosition.y) {
@@ -133,7 +125,7 @@ bool Entity::checkCollision(const Vec2f& position, float rotation) {
 	auto currentCell = level->getRelativePositionInLevel();
 	auto currentLocation = currentCell->currentLocation;
 
-	if (currentCell->avaiblePaths & Level::CELL_PATH_E && position.x > currentLocation.x + 35) {
+	if (currentCell->avaiblePaths & Level::CELL_PATH_E && position.x > currentLocation.x + 30) {
 		return true;
 	}
 	else if (currentCell->avaiblePaths & Level::CELL_PATH_W && position.x < currentLocation.x) {
@@ -142,10 +134,15 @@ bool Entity::checkCollision(const Vec2f& position, float rotation) {
 	else if (currentCell->avaiblePaths & Level::CELL_PATH_N && position.y < currentLocation.y) {
 		return true;
 	}
-	else if (currentCell->avaiblePaths & Level::CELL_PATH_S && position.y > currentLocation.y + 35) {
+	else if (currentCell->avaiblePaths & Level::CELL_PATH_S && position.y > currentLocation.y + 30) {
 		return true;
 	}
 	return false;
 }
 
+
+void Entity::move(Vec2f position, float rotation) {
+	SetRotation(rotation);
+	SetPosition(Vec2f(position.x, position.y));
+}
 

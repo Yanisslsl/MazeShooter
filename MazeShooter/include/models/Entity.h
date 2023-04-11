@@ -20,6 +20,7 @@ public:
 	Vec2f GetSize();
 	Vec2f m_velocity;
 	void updateMovement(const Vec2f& acceleration, float rotation);
+	void move(const Vec2f postition, float rotation);
 private:
 	sf::Sprite* m_sprite;
 	Vec2f m_spriteSize;

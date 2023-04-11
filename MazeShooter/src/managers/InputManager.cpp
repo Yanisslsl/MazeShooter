@@ -3,6 +3,7 @@
 #include "../../include/utils/Vector2.h"
 #include "../../include/models/Player.h"
 #include "../../include/managers/LevelManager.h"
+#include "../../include/managers/WindowManager.h"
 
 #define ASSETS_PATH "assets/"
 
@@ -33,32 +34,36 @@ void InputManager::update(sf::Keyboard::Key key, float dt) {
 		const float dAcc = 5;
 		Player* player = LevelManager::GetInstance()->getCurrent()->getPlayer();
 		Level* level = LevelManager::GetInstance()->getCurrent();
-		float rotation;
+		auto window = WindowManager::GetInstance()->GetWindow();
+		float rotation = 90;
 		switch (key)
 		{
-		case sf::Keyboard::Up:
-			acceleration.y -= dAcc;
-			rotation = 270;
-			break;
-		case sf::Keyboard::Down:
-			acceleration.y += dAcc;
-			rotation = 90;
-			break;
-		case sf::Keyboard::Right:
-			acceleration.x += dAcc;
-			rotation = 0;
-			break;
-		case sf::Keyboard::Left:
-			acceleration.x -= dAcc;
-			rotation = 180;
-			break;
-		case sf::Keyboard::Space:
-			break;
+			case sf::Keyboard::Up:
+				acceleration.y -= dAcc;
+				rotation = 270;
+				break;
+			case sf::Keyboard::Down:
+				acceleration.y += dAcc;
+				rotation = 90;
+				break;
+			case sf::Keyboard::Right:
+				acceleration.x += dAcc;
+				rotation = 0;
+				break;
+			case sf::Keyboard::Left:
+				acceleration.x -= dAcc;
+				rotation = 180;
+				break;
+			case sf::Keyboard::Space:
+				level->addBullet();
+				break;
+			case sf::Keyboard::Escape:
+				window->close();
+				break;
 		}
 		acceleration.x += acceleration.x * dt;
 		acceleration.y += acceleration.y * dt;
-		player->updateMovement(Vec2f(acceleration.x, acceleration.y), rotation);
-
+		level->update(acceleration, rotation);
 }
 
 

@@ -1,0 +1,12 @@
+# ninja log v5
+2	816	7029215823294504	CMakeFiles/MazeShooter.dir/MazeShooter.cpp.obj	d571b7071009e93d
+13	524	7029217206624769	CMakeFiles/MazeShooter.dir/src/managers/WindowManager.cpp.obj	73fd96feee9b249d
+21	821	7029215823314646	CMakeFiles/MazeShooter.dir/src/models/Bullet.cpp.obj	9862d43dfe21a000
+30	722	7029216527708678	CMakeFiles/MazeShooter.dir/src/models/Entity.cpp.obj	c26329e3d99d87ea
+28	823	7029215823354656	CMakeFiles/MazeShooter.dir/src/models/Player.cpp.obj	584feb46b429bced
+19	724	7029216527708678	CMakeFiles/MazeShooter.dir/src/managers/InputManager.cpp.obj	192b99c1467be9ae
+6	861	7029215823765297	CMakeFiles/MazeShooter.dir/src/managers/AssetManager.cpp.obj	35a55a34b75be05c
+15	724	7029216527721500	CMakeFiles/MazeShooter.dir/src/managers/GameManager.cpp.obj	721dc717583abb55
+25	725	7029216527741502	CMakeFiles/MazeShooter.dir/src/managers/LevelManager.cpp.obj	78939cd577c0bd19
+35	745	7029216527966850	CMakeFiles/MazeShooter.dir/src/models/Level.cpp.obj	e65886c326f29d1c
+525	1287	7029217209052559	MazeShooter.exe	3154b786f20af80d

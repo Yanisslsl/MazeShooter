@@ -60,6 +60,9 @@
     <ClCompile Include="src\models\Player.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\models\Bullet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />
@@ -92,5 +95,11 @@
     <ClInclude Include="include\models\Player.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\models\Bullet.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>
