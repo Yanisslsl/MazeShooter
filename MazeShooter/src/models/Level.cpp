@@ -4,6 +4,7 @@
 #include <stack>
 #include "../../include/models/Player.h"
 #include "../../include/models/Bullet.h"
+#include "../../include/managers/EntityManager.h"
 #pragma once
 
 Level::Level(int nWidth, int nHeight, int nPathWidth)
@@ -22,12 +23,9 @@ Level::Level(int nWidth, int nHeight, int nPathWidth)
 
 
 void Level::InitializeEntities() {
-	Player* player = new Player(Vec2f(10, 10));
-	player->SetSize(Vec2f(1.0f, 1.0f));
-	m_entities["player"] = player;
+	EntityManager::GetInstance()->createPlayer();
 }
-
-void Level::Load() {
+void Level::Load(sf::RenderWindow& window) {
 	InitializeEntities();
 	//lambda function to calculate offset
 	auto offset = [&](int x, int y)
@@ -90,13 +88,12 @@ void Level::Load() {
 			m_stack.pop();
 		}
 	}
+
 }
 
 void Level::Draw(sf::RenderWindow& window) {
-	auto offset = [&](int x, int y)
-	{
-		return (m_stack.top().second + y) * m_nLevelWidth + (m_stack.top().first + x);
-	};
+
+	auto entities = EntityManager::GetInstance()->getEntities();
 
 	//draw for each lines and columns in the maze dimensions
 	for (int x = 0; x < m_nLevelWidth; x++) {
@@ -160,28 +157,37 @@ void Level::Draw(sf::RenderWindow& window) {
 		}
 	}
 
-	
-	
-	for (auto& entity : m_entities) {
-		entity.second->Render(window);
+	for (auto& [key, value] : entities) {
+		if (std::holds_alternative<Entity*>(value)) {
+			Entity* entity_ptr = std::get<Entity*>(value);
+			entity_ptr->Render(window);
+		}
+		else {
+			std::vector<Entity*>* entity_ptr = std::get<std::vector<Entity*>*>(value);
+			for (auto& entity : *entity_ptr)
+			{
+				entity->Render(window);
+			}
+		}
 	}
 }
 
 Player* Level::getPlayer() {
-	return dynamic_cast<Player*>(m_entities["player"]);
+	return EntityManager::GetInstance()->getPlayer();
 }
 
 
 void Level::DrawLevel() {
+
 }
 
 
-// & 1 if all bytes are 1 so 0011 & 0001 = 0001
-// | 1 if at least one byte is 1 so 0011 | 0001 = 0011
+// & 1 if all bytes are 1 so 0010 (2 en decimal et 0x02 en hex) & 0001 ( 1 et 0x01) = 0000 => falsy
+// | 1 if at least one byte is 1 so 0010 | 0001 = 0011 true
+//https://bitwisecmd.com/
 
-Level::Cell* Level::getRelativePositionInLevel() {
-	auto player = m_entities["player"];
-	auto playerPos = player->GetPosition();
+Level::Cell* Level::getRelativePositionInLevel(Entity* entity) {
+	auto playerPos = entity->GetPosition();
 
 	auto x = floor(playerPos.x / (1600 / 40));
 	auto y = floor(playerPos.y / (800 / 20));
@@ -192,15 +198,20 @@ Level::Cell* Level::getRelativePositionInLevel() {
 	return d;
 }
 
-void Level::update(Vec2f playerPosition, float playerRotation) {
-	auto player = getPlayer();
-	player->updateMovement(Vec2f(playerPosition.x, playerPosition.y), playerRotation);
-}
+void Level::update()
+{
+	auto entities = EntityManager::GetInstance()->getEntities();
 
-void Level::addBullet() {
-	auto player = getPlayer();
-	auto bullet = new Bullet(Vec2f(10, 10));
-	bullet->SetSize(Vec2f(1.0f, 1.0f));
-	m_entities["bullet"] = bullet;
+	for (auto& [key, value] : entities) {
+		if (std::holds_alternative<std::vector<Entity*>*>(value)) {
+			std::vector<Entity*>* entity_ptr = std::get<std::vector<Entity*>*>(value);
+			for (auto& entity : *entity_ptr)
+			{
+				if(entity->GetType() == Entity::EntityType::BULLET)
+				{
+					dynamic_cast<Bullet*>(entity)->moveBullet();
+				}
+			}
+		}
+	}
 }
-

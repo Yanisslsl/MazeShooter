@@ -31,6 +31,11 @@ GameManager::~GameManager()
 	}
 }
 
+float GameManager::getDeltaTime()
+{
+	return m_deltaTime;
+}
+
 bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 {
 	// MANAGE RESOURCES
@@ -55,10 +60,6 @@ bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 	if (levelManager == nullptr)
 		return false;
 	levelManager->Load();
-	auto player = levelManager->getCurrent()->getPlayer();
-	auto level = levelManager->getCurrent();
-	auto position = player->GetPosition();
-
 
 	InputManager* inputManager = InputManager::GetInstance();
 
@@ -67,12 +68,10 @@ bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 	sf::Clock deltaTime;
 
 
-
-	level->DrawLevel();
 	// GAME LOOP
 	while (window->isOpen())
 	{
-		float dt = deltaTime.restart().asSeconds();
+		m_deltaTime = deltaTime.restart().asSeconds();
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
@@ -82,14 +81,14 @@ bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 					window->close();
 					break;
 				case sf::Event::KeyPressed:
-					inputManager->update(event.key.code, dt);
+					inputManager->update(event.key.code);
 			}
 		}
+		levelManager->getCurrent()->update();
 		window->setView(view);
 		levelManager->RenderLevel(*window);
 		window->display();
 	}
-
 
 	return true;
 }

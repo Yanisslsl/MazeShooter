@@ -1,4 +1,5 @@
 #include "../../include/models/Entity.h"
+#include "../../include/models/Entity.h"
 #include "../../include/managers/AssetManager.h"
 #include "../../include/managers/WindowManager.h"
 #include "../../include/models/Level.h"
@@ -81,6 +82,26 @@ Vec2f Entity::GetSize()
 	return m_size;
 }
 
+void Entity::SetType(Entity::EntityType type)
+{
+	m_type = type;
+}
+
+Entity::EntityType Entity::GetType()
+{
+	return m_type;
+}
+
+Vec2f Entity::GetDirection() const
+{
+	return m_direction;
+}
+
+void Entity::SetDirection(Vec2f direction)
+{
+	m_direction = direction;
+}
+
 void Entity::SetRotation(float angle) {
 	m_rotation = angle;
 	m_sprite->setRotation(angle);
@@ -88,9 +109,9 @@ void Entity::SetRotation(float angle) {
 
 void Entity::updateMovement(const Vec2f& acceleration, float rotation)
 {
-	auto playerPosition = GetPosition();
-	float pX = playerPosition.x + acceleration.x;
-	float pY = playerPosition.y + acceleration.y;
+	auto position = GetPosition();
+	float pX = position.x + acceleration.x;
+	float pY = position.y + acceleration.y;
 
 	if (isInSameCell(Vec2f(pX, pY))) {
 		move(Vec2f(pX, pY), rotation);
@@ -103,7 +124,7 @@ void Entity::updateMovement(const Vec2f& acceleration, float rotation)
 bool Entity::isInSameCell(const Vec2f& position)
 {
 	Level* level = LevelManager::GetInstance()->getCurrent();
-	auto currentCellPosition = level->getRelativePositionInLevel()->currentLocation;
+	auto currentCellPosition = level->getRelativePositionInLevel(this)->currentLocation;
 	if (position.x > currentCellPosition.x + 30) {
 		return false;
 	}
@@ -122,7 +143,7 @@ bool Entity::isInSameCell(const Vec2f& position)
 
 bool Entity::checkCollision(const Vec2f& position, float rotation) {
 	Level* level = LevelManager::GetInstance()->getCurrent();
-	auto currentCell = level->getRelativePositionInLevel();
+	auto currentCell = level->getRelativePositionInLevel(this);
 	auto currentLocation = currentCell->currentLocation;
 
 	if (currentCell->avaiblePaths & Level::CELL_PATH_E && position.x > currentLocation.x + 30) {
@@ -144,5 +165,10 @@ bool Entity::checkCollision(const Vec2f& position, float rotation) {
 void Entity::move(Vec2f position, float rotation) {
 	SetRotation(rotation);
 	SetPosition(Vec2f(position.x, position.y));
+}
+
+float Entity::GetRotation()
+{
+		return m_rotation;
 }
 

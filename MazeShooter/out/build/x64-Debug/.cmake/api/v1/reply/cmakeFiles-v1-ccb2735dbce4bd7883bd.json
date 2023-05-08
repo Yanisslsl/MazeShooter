@@ -155,6 +155,18 @@
 		},
 		{
 			"isGenerated" : true,
+			"path" : "out/build/x64-Debug/vcpkg_installed/x64-windows/share/eventpp/eventppConfigVersion.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "out/build/x64-Debug/vcpkg_installed/x64-windows/share/eventpp/eventppConfig.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "out/build/x64-Debug/vcpkg_installed/x64-windows/share/eventpp/eventppTargets.cmake"
+		},
+		{
+			"isGenerated" : true,
 			"path" : "out/build/x64-Debug/vcpkg_installed/x64-windows/share/sfml/SFMLConfigVersion.cmake"
 		},
 		{

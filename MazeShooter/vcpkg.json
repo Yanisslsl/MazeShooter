@@ -2,6 +2,7 @@
     "name": "maze-shooter",
     "description": "Angry Birds like game with Leo's head as the bullet.",
     "dependencies": [
-        "sfml"
+        "sfml",
+        "eventpp"
     ]
 }

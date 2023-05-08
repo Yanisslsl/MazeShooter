@@ -4,7 +4,7 @@
 #include "../../include/models/Player.h"
 #include "../../include/managers/LevelManager.h"
 #include "../../include/managers/WindowManager.h"
-
+#include "../../include/core/EventDispatcher.h"
 #define ASSETS_PATH "assets/"
 
 InputManager* InputManager::m_instance = nullptr;
@@ -24,46 +24,19 @@ InputManager::~InputManager()
     delete m_instance;
 }
 
-InputManager::InputManager() {
+InputManager::InputManager() = default;
 
-}
-
-void InputManager::update(sf::Keyboard::Key key, float dt) {
-	std::cout << dt << std::endl;
+void InputManager::update(sf::Keyboard::Key key) {
 		Vec2f acceleration;
-		const float dAcc = 5;
+		const auto dispatcher = EventDispatcher::GetInstance();
 		Player* player = LevelManager::GetInstance()->getCurrent()->getPlayer();
 		Level* level = LevelManager::GetInstance()->getCurrent();
 		auto window = WindowManager::GetInstance()->GetWindow();
 		float rotation = 90;
-		switch (key)
+		dispatcher->dispatch(Event::EventType::INPUT_PLAYER, { key });
+		if(key == sf::Keyboard::Key::Space)
 		{
-			case sf::Keyboard::Up:
-				acceleration.y -= dAcc;
-				rotation = 270;
-				break;
-			case sf::Keyboard::Down:
-				acceleration.y += dAcc;
-				rotation = 90;
-				break;
-			case sf::Keyboard::Right:
-				acceleration.x += dAcc;
-				rotation = 0;
-				break;
-			case sf::Keyboard::Left:
-				acceleration.x -= dAcc;
-				rotation = 180;
-				break;
-			case sf::Keyboard::Space:
-				level->addBullet();
-				break;
-			case sf::Keyboard::Escape:
-				window->close();
-				break;
+			dispatcher->dispatch(Event::EventType::INPUT_BULLET, { key });
 		}
-		acceleration.x += acceleration.x * dt;
-		acceleration.y += acceleration.y * dt;
-		level->update(acceleration, rotation);
 }
-
 

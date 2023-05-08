@@ -15,7 +15,8 @@
 		[
 			"_add_executable",
 			"add_executable",
-			"target_link_libraries"
+			"target_link_libraries",
+			"include_directories"
 		],
 		"files" : 
 		[
@@ -42,7 +43,13 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 16,
+				"line" : 18,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 13,
 				"parent" : 0
 			}
 		]
@@ -62,7 +69,7 @@
 			"includes" : 
 			[
 				{
-					"backtrace" : 3,
+					"backtrace" : 4,
 					"isSystem" : true,
 					"path" : "C:/Users/yello/Dev/MazeShooter/MazeShooter/out/build/x64-Debug/vcpkg_installed/x64-windows/include"
 				}
@@ -87,7 +94,10 @@
 				16,
 				17,
 				18,
-				19
+				19,
+				21,
+				23,
+				25
 			]
 		}
 	],
@@ -153,7 +163,10 @@
 				16,
 				17,
 				18,
-				19
+				19,
+				21,
+				23,
+				25
 			]
 		},
 		{
@@ -169,7 +182,10 @@
 				7,
 				8,
 				9,
-				10
+				10,
+				20,
+				22,
+				24
 			]
 		}
 	],
@@ -283,6 +299,39 @@
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
 			"path" : "src/models/Level.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "include/managers/EntityManager.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "src/managers/EntityManager.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "include/core/EventDispatcher.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "src/core/EventDispatcher.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "include/Events/Event.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "src/Events/Event.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

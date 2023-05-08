@@ -1,5 +1,6 @@
 #include "../../include/managers/LevelManager.h"
 #include "../../include/models/Level.h";
+#include "../../include/managers/WindowManager.h"
 #include <iostream>
 
 
@@ -49,8 +50,9 @@ Level *LevelManager::create() {
 
 void LevelManager::Load()
 {
+	WindowManager* windowManager = WindowManager::GetInstance();
 	auto current_maze = LevelManager::getCurrent();
-	current_maze->Load();
+	current_maze->Load(*windowManager->GetWindow());
 }
 
 void LevelManager::RenderLevel(sf::RenderWindow& window)
@@ -59,4 +61,11 @@ void LevelManager::RenderLevel(sf::RenderWindow& window)
 	current_maze->Draw(window);
 }
 
+void updateLevel(sf::Event event,float dt)
+{
+	
+}
 
+
+// Passer les input en event -> afin d'arreter de passer inputManager->update dans la while loop
+// Faire le mouvement des ennemis et des balles

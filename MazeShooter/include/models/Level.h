@@ -24,7 +24,7 @@ public:
 		Vec2f currentLocation;
 	};
 
-	void Load();
+	void Load(sf::RenderWindow& window);
 	void Draw(sf::RenderWindow& window);
 	void InitializeEntities();
 	Player* getPlayer();
@@ -34,10 +34,9 @@ public:
 	std::vector<Cell*> m_levelMap;
 	std::vector<Bullet*> m_bullets;
 	void DrawLevel();
-	Cell* getRelativePositionInLevel();
-	void update(Vec2f playerPosition, float playerRotation);
+	Cell* getRelativePositionInLevel(Entity* entity);
 	void addBullet();
-	std::variant<int, float> v, w;
+	void update();
 	enum
 	{
 		CELL_PATH_N = 0x01, //1
@@ -47,7 +46,7 @@ public:
 		CELL_VISITED = 0x10, //16
 	};
 private:
-	std::unordered_map<string,Entity*> m_entities;
+	std::unordered_map<string, std::variant<std::vector<Entity*>*, Entity*>> m_entities;
 	int  m_nVisitedCells;
 	stack<pair<int, int>> m_stack;	// (x, y) coordinate pairs
 	int  m_nPathWidth;
