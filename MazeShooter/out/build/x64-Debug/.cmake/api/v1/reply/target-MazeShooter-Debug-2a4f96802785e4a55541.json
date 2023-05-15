@@ -43,13 +43,13 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 18,
+				"line" : 19,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 1,
-				"line" : 13,
+				"line" : 14,
 				"parent" : 0
 			}
 		]
@@ -97,7 +97,8 @@
 				19,
 				21,
 				23,
-				25
+				25,
+				27
 			]
 		}
 	],
@@ -166,7 +167,8 @@
 				19,
 				21,
 				23,
-				25
+				25,
+				27
 			]
 		},
 		{
@@ -185,7 +187,8 @@
 				10,
 				20,
 				22,
-				24
+				24,
+				26
 			]
 		}
 	],
@@ -332,6 +335,17 @@
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
 			"path" : "src/Events/Event.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "include/models/Enemy.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 2,
+			"compileGroupIndex" : 0,
+			"path" : "src/models/Enemy.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

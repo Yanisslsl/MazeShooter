@@ -1,10 +1,10 @@
 #include "../../include/models/Level.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <stack>
 #include "../../include/models/Player.h"
 #include "../../include/models/Bullet.h"
 #include "../../include/managers/EntityManager.h"
+#include<cstdlib>
 #pragma once
 
 Level::Level(int nWidth, int nHeight, int nPathWidth)
@@ -24,9 +24,9 @@ Level::Level(int nWidth, int nHeight, int nPathWidth)
 
 void Level::InitializeEntities() {
 	EntityManager::GetInstance()->createPlayer();
+	initializeEnemies();
 }
 void Level::Load(sf::RenderWindow& window) {
-	InitializeEntities();
 	//lambda function to calculate offset
 	auto offset = [&](int x, int y)
 	{
@@ -153,9 +153,11 @@ void Level::Draw(sf::RenderWindow& window) {
 			if (m_level[y * m_nLevelWidth + x] & CELL_PATH_W) {
 				cell->avaiblePaths |= CELL_PATH_W;
 			}
+			cell->currentLocation = Vec2f(x * 40, y * 40);
 			m_levelMap[y * m_nLevelWidth + x] = cell;
 		}
 	}
+
 
 	for (auto& [key, value] : entities) {
 		if (std::holds_alternative<Entity*>(value)) {
@@ -193,8 +195,7 @@ Level::Cell* Level::getRelativePositionInLevel(Entity* entity) {
 	auto y = floor(playerPos.y / (800 / 20));
 
 	auto u = y * m_nLevelWidth + x;
-	auto d = m_levelMap[y * m_nLevelWidth + x];
-	d->currentLocation = Vec2f(x * 40, y * 40);
+	auto d = m_levelMap.at(y * m_nLevelWidth + x);
 	return d;
 }
 
@@ -211,7 +212,23 @@ void Level::update()
 				{
 					dynamic_cast<Bullet*>(entity)->moveBullet();
 				}
+				else if (entity->GetType() == Entity::EntityType::ENEMY)
+				{
+					dynamic_cast<Enemy*>(entity)->moveEnemy();
+				}
 			}
-		}
+		} 
 	}
 }
+
+void Level::initializeEnemies()
+{
+
+	for(int i = 0; i < 10; i++)
+	{
+		const auto randomCell = m_levelMap.at(rand() % m_levelMap.size());
+		std::cout << "HELLO" << randomCell->currentLocation.x;
+		EntityManager::GetInstance()->createEnemy(Vec2f(randomCell->currentLocation.x + 10, randomCell->currentLocation.y + 10), 0);
+	}
+}
+

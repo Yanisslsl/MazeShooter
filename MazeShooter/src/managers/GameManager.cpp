@@ -4,7 +4,6 @@
 #include "../../include/managers/LevelManager.h"
 #include "../../include/managers/InputManager.h"
 #include "../../include/utils/Vector2.h"
-#include "../../include/models/Player.h"
 #include <iostream>
 
 GameManager* GameManager::m_instance = nullptr;
@@ -66,6 +65,11 @@ bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 	
 	sf::View view(sf::FloatRect(0.f, 0.f, _size.x, _size.y));
 	sf::Clock deltaTime;
+	// made for initiliaze mLevelMap to avoid empty pointers on vectors due to the moving of the enemies on game start
+	// //TODO update with level draw or encapsulate initilization of levelMap
+	levelManager->RenderLevel(*window);
+	levelManager->getCurrent()->InitializeEntities();
+
 
 
 	// GAME LOOP
@@ -104,6 +108,7 @@ bool GameManager::LoadResources()
 	// Load textures
 	success &= assetManager->LoadTexture("idle.png", "player");
 	success &= assetManager->LoadTexture("bullet.png", "bullet");
+	success &= assetManager->LoadTexture("enemy.png", "enemy");
 
 
 	if (success)

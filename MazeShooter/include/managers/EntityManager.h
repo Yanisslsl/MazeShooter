@@ -11,6 +11,8 @@
 #include "../../include/models/Entity.h"
 #include "../../include/models/Player.h"
 #include "../../include/models/Bullet.h"
+#include "../../include/models/Enemy.h"
+
 
 using namespace std;
 
@@ -29,7 +31,8 @@ public:
 	};
 	Entity* createEntity(EntityType type, Vec2f position, float rotation);
 	Player* createPlayer();
-	Bullet* createBullet(Vec2f playerPosition, Vec2f direction, float rotation);
+	Bullet* createBullet(Vec2f playerPosition, float rotation);
+	Enemy* createEnemy(Vec2f playerPosition, float rotation);
 	Player* getPlayer();
 	void DestroyBullet(Entity* entity);
 	std::unordered_map<string, std::variant<std::vector<Entity*>*, Entity*>> getEntities();

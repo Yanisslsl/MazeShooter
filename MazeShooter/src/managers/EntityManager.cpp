@@ -2,6 +2,8 @@
 #include "../../include/models/Player.h"
 #include "../../include/models/Entity.h"
 #include "../../include/models/Bullet.h"
+#include "../../include/models/Enemy.h"
+
 
 
 
@@ -25,6 +27,7 @@ EntityManager::~EntityManager()
 
 EntityManager::EntityManager() {
 	m_entities["bullets"] = new std::vector<Entity*>();
+	m_entities["enemies"] = new std::vector<Entity*>();
 }
 
 Entity* EntityManager::createEntity(EntityManager::EntityType type, Vec2f position = Vec2f(10, 10), float rotation = 90)
@@ -34,7 +37,7 @@ Entity* EntityManager::createEntity(EntityManager::EntityType type, Vec2f positi
 	{
 		case EntityManager::PLAYER:
 			{
-				auto player = new Player(Vec2f(10, 10));
+				const auto player = new Player(Vec2f(10, 10));
 				player->SetSize(Vec2f(1.0f, 1.0f));
 				player->SetType(Entity::EntityType::PLAYER);
 				entity = player;
@@ -42,13 +45,22 @@ Entity* EntityManager::createEntity(EntityManager::EntityType type, Vec2f positi
 			}
 		case EntityManager::BULLET:
 			{
-				auto bullet = new Bullet(position);
+				const auto bullet = new Bullet(position);
 				bullet->SetSize(Vec2f(1.0f, 1.0f));
 				bullet->SetType(Entity::EntityType::BULLET);
 				bullet->SetRotation(rotation);
 				entity = bullet;
 				break;
 			}
+		case EntityManager::ENEMY:
+		{
+			const auto enemy = new Enemy(position);
+			enemy->SetSize(Vec2f(1.0f, 1.0f));
+			enemy->SetType(Entity::EntityType::ENEMY);
+			enemy->SetRotation(0);
+			entity = enemy;
+			break;
+		}
 	}
 
 
@@ -71,13 +83,23 @@ Player* EntityManager::getPlayer()
 	return nullptr;
 }
 
-Bullet* EntityManager::createBullet(Vec2f playerPosition, Vec2f direction, float rotation)
+Bullet* EntityManager::createBullet(Vec2f playerPosition, float rotation)
 {
-	auto bullet = static_cast<Bullet*>(createEntity(EntityManager::EntityType::BULLET, playerPosition, rotation));
-	if (auto pVec = std::get_if<std::vector<Entity*>*>(&m_entities["bullets"])) {
+	const auto bullet = static_cast<Bullet*>(createEntity(EntityManager::EntityType::BULLET, playerPosition, rotation));
+	if (const auto pVec = std::get_if<std::vector<Entity*>*>(&m_entities["bullets"])) {
 		(**pVec).push_back(bullet);
 	}
-	return static_cast<Bullet*>(bullet);
+	return bullet;
+}
+
+Enemy* EntityManager::createEnemy(Vec2f playerPosition, float rotation)
+{
+	const auto enemy = static_cast<Enemy*>(createEntity(EntityManager::EntityType::ENEMY, playerPosition, rotation));
+	if (const auto pVec = std::get_if<std::vector<Entity*>*>(&m_entities["enemies"]))
+	{
+		(**pVec).push_back(enemy);
+	}
+	return enemy;
 }
 
 std::unordered_map<string, std::variant<std::vector<Entity*>*, Entity*>> EntityManager::getEntities()

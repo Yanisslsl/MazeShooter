@@ -92,12 +92,12 @@ Entity::EntityType Entity::GetType()
 	return m_type;
 }
 
-Vec2f Entity::GetDirection() const
+Entity::Direction Entity::GetDirection() 
 {
 	return m_direction;
 }
 
-void Entity::SetDirection(Vec2f direction)
+void Entity::SetDirection(Entity::Direction direction)
 {
 	m_direction = direction;
 }
@@ -113,49 +113,49 @@ void Entity::updateMovement(const Vec2f& acceleration, float rotation)
 	float pX = position.x + acceleration.x;
 	float pY = position.y + acceleration.y;
 
-	if (isInSameCell(Vec2f(pX, pY))) {
+	if (isInSameCell(Vec2f(pX, pY), 10)) {
 		move(Vec2f(pX, pY), rotation);
 	}
-	else if (checkCollision(Vec2f(pX, pY), rotation)) {
+	else if (checkCollision(Vec2f(pX, pY), rotation, 10)) {
 		move(Vec2f(pX, pY), rotation);
 	}
 }
 
-bool Entity::isInSameCell(const Vec2f& position)
+bool Entity::isInSameCell(const Vec2f& position, int padding)
 {
 	Level* level = LevelManager::GetInstance()->getCurrent();
 	auto currentCellPosition = level->getRelativePositionInLevel(this)->currentLocation;
-	if (position.x > currentCellPosition.x + 30) {
+	if (position.x + padding > currentCellPosition.x + 30) {
 		return false;
 	}
-	else if (position.x < currentCellPosition.x) {
+	else if (position.x - padding < currentCellPosition.x) {
 		return false;
 	}
-	else if (position.y > currentCellPosition.y + 30) {
+	else if (position.y + padding > currentCellPosition.y + 30) {
 		return false;
 	}
-	else if (position.y < currentCellPosition.y) {
+	else if (position.y - padding < currentCellPosition.y) {
 		return false;
 	}
 	return true;
 }
 
 
-bool Entity::checkCollision(const Vec2f& position, float rotation) {
+bool Entity::checkCollision(const Vec2f& position, float rotation, int padding) {
 	Level* level = LevelManager::GetInstance()->getCurrent();
 	auto currentCell = level->getRelativePositionInLevel(this);
 	auto currentLocation = currentCell->currentLocation;
 
-	if (currentCell->avaiblePaths & Level::CELL_PATH_E && position.x > currentLocation.x + 30) {
+	if (currentCell->avaiblePaths & Level::CELL_PATH_E && position.x + padding > currentLocation.x + 30) {
 		return true;
 	}
-	else if (currentCell->avaiblePaths & Level::CELL_PATH_W && position.x < currentLocation.x) {
+	else if (currentCell->avaiblePaths & Level::CELL_PATH_W && position.x - padding < currentLocation.x) {
 		return true;
 	}
-	else if (currentCell->avaiblePaths & Level::CELL_PATH_N && position.y < currentLocation.y) {
+	else if (currentCell->avaiblePaths & Level::CELL_PATH_N && position.y - padding < currentLocation.y) {
 		return true;
 	}
-	else if (currentCell->avaiblePaths & Level::CELL_PATH_S && position.y > currentLocation.y + 30) {
+	else if (currentCell->avaiblePaths & Level::CELL_PATH_S && position.y + padding > currentLocation.y + 30) {
 		return true;
 	}
 	return false;
@@ -169,6 +169,6 @@ void Entity::move(Vec2f position, float rotation) {
 
 float Entity::GetRotation()
 {
-		return m_rotation;
+	return m_rotation;
 }
 

@@ -49,5 +49,5 @@ void Player::movePlayer(const Event::EventType key, Event e)
 void Player::shootBullet()
 {
 	auto entityManager = EntityManager::GetInstance();
-	entityManager->createBullet(GetPosition(), GetDirection(), GetRotation());
+	entityManager->createBullet(GetPosition(), GetRotation());
 }

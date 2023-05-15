@@ -11,9 +11,9 @@ Bullet::Bullet(const Vec2f& _position)
 
 void Bullet::moveBullet()
 {
-	auto deltaTime = GameManager::GetInstance()->getDeltaTime();
-	auto entityManager = EntityManager::GetInstance();
-	auto rotation = GetRotation();
+	const auto deltaTime = GameManager::GetInstance()->getDeltaTime();
+	const auto entityManager = EntityManager::GetInstance();
+	const auto rotation = GetRotation();
 	Vec2f acceleration;
 	const float dAcc = 100;
 
@@ -36,13 +36,13 @@ void Bullet::moveBullet()
 	float pX = position.x + acceleration.x * deltaTime;
 	float pY = position.y + acceleration.y * deltaTime;
 
-	if (isInSameCell(Vec2f(pX, pY))) {
+	if (isInSameCell(Vec2f(pX, pY), 5)) {
 		move(Vec2f(pX, pY), rotation);
 	}
-	else if (checkCollision(Vec2f(pX, pY), rotation)) {
+	else if (checkCollision(Vec2f(pX, pY), rotation, 5)) {
 		move(Vec2f(pX, pY), rotation);
 	}
-	else if(!checkCollision(Vec2f(pX, pY), rotation))
+	else if(!checkCollision(Vec2f(pX, pY), rotation, 5))
 	{
 		entityManager->DestroyBullet(this);
 	}

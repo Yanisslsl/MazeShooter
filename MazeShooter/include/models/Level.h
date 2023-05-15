@@ -37,7 +37,8 @@ public:
 	Cell* getRelativePositionInLevel(Entity* entity);
 	void addBullet();
 	void update();
-	enum
+	void initializeEnemies();
+	enum 
 	{
 		CELL_PATH_N = 0x01, //1
 		CELL_PATH_E = 0x02, //2

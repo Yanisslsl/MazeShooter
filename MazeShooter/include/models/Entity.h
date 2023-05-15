@@ -11,7 +11,15 @@ public:
 	{
 		PLAYER,
 		BULLET,
-		MOB
+		ENEMY
+	};
+
+	enum class Direction
+	{
+		UP,
+		DOWN,
+		LEFT,
+		RIGHT
 	};
 	Entity();
 	virtual ~Entity();
@@ -22,11 +30,11 @@ public:
 	float GetRotation();
 	void SetRotation(float angle);
 	void SetSize(const Vec2f& _size);
-	bool isInSameCell(const Vec2f& position);
-	bool checkCollision(const Vec2f& position, float rotation);
+	bool isInSameCell(const Vec2f& position, int padding);
+	bool checkCollision(const Vec2f& position, float rotation, int padding);
 	Vec2f GetSize();
-	void SetDirection(Vec2f direction);
-	Vec2f GetDirection() const;
+	void SetDirection(Direction direction);
+	Direction GetDirection();
 	void SetType(EntityType type);
 	EntityType GetType();
 	Vec2f m_velocity;
@@ -39,5 +47,7 @@ private:
 	Vec2f m_size;
 	float m_rotation;
 	EntityType m_type;
-	Vec2f m_direction;
+	Direction m_direction;
+	// TODO change to getters/setters
+	float m_acceleration;
 };

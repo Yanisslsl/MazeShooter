@@ -23,7 +23,7 @@ EventDispatcher::~EventDispatcher()
 {
 		if (m_instance != nullptr)
 		{
-					delete m_instance;
+			delete m_instance;
 		}
 }
 
