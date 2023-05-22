@@ -1,46 +1,54 @@
-#include "../../include/core/EventDispatcher.h"
+#include "../../include/core/Eventdispatcher.h"
 #include "../../include/managers/EntityManager.h"
+#include "../../include/managers/UIManager.h"
 #include <iostream>
 
-EventDispatcher* EventDispatcher::m_instance = nullptr;
+Eventdispatcher* Eventdispatcher::m_instance = nullptr;
 
-EventDispatcher* EventDispatcher::GetInstance()
+Eventdispatcher* Eventdispatcher::GetInstance()
 {
-		if (m_instance == nullptr)
-		{
-					m_instance = new EventDispatcher();
+	if (m_instance == nullptr)
+	{
+		m_instance = new Eventdispatcher();
 	}
 
 	return m_instance;
 }
 
-EventDispatcher::EventDispatcher()
+Eventdispatcher::Eventdispatcher()
 {
-	initializeListeners();
+	InitializeListeners();
 }
 
-EventDispatcher::~EventDispatcher()
+Eventdispatcher::~Eventdispatcher()
 {
-		if (m_instance != nullptr)
-		{
-			delete m_instance;
-		}
-}
-
-void EventDispatcher::initializeListeners()
-{
-	auto player = EntityManager::GetInstance()->getPlayer();
-	dispatcher.appendListener(Event::EventType::INPUT_PLAYER, [player](const Event& e)
+	if (m_instance != nullptr)
 	{
-			player->movePlayer(Event::EventType::INPUT_PLAYER, e);
-	});
-	dispatcher.appendListener(Event::EventType::INPUT_BULLET, [player](const Event& e)
+		delete m_instance;
+	}
+}
+
+void Eventdispatcher::InitializeListeners()
+{
+	dispatcher.appendListener(Event::EventType::INPUT_PLAYER, [](const Event& e)
 	{
-			player->shootBullet();
+		EntityManager::GetInstance()->GetPlayer()->MovePlayer(Event::EventType::INPUT_PLAYER, e);
+	});
+	dispatcher.appendListener(Event::EventType::INPUT_BULLET, [](const Event& e)
+	{
+		EntityManager::GetInstance()->GetPlayer()->ShootBullet();
+	});
+	dispatcher.appendListener(Event::EventType::ENEMY_COLLISION, [](const Event& e)
+	{
+		EntityManager::GetInstance()->GetPlayer()->HandleCollision(e.entity);
+	});
+	dispatcher.appendListener(Event::EventType::MOUSE_CLICKED, [](const Event& e)
+	{
+		UIManager::GetInstance()->HandleClick(e);
 	});
 }
 
-void EventDispatcher::dispatch(Event::EventType type, const Event& e)
+void Eventdispatcher::Dispatch(Event::EventType type, const Event& e)
 {
-		dispatcher.dispatch(type, e);
+	dispatcher.dispatch(type, e);
 }

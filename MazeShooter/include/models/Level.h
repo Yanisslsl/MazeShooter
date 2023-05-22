@@ -8,48 +8,28 @@ using namespace std;
 #include "../utils/Vector2.h"
 #include "Bullet.h"
 #include <variant>
-
+#include <vector>
 
 #pragma once
 class Level
 {
 
 public:
-	Level(int nWidth, int nHeight, int nPathWidth = 3);
-
-
-	struct Cell
+	enum class LevelType
 	{
-		int avaiblePaths;
-		Vec2f currentLocation;
+		MainMenu,
+		Maze
 	};
-
-	void Load(sf::RenderWindow& window);
-	void Draw(sf::RenderWindow& window);
-	void InitializeEntities();
-	Player* getPlayer();
+	Level(int nWidth_, int _nHeight, LevelType _levelType);
+	void virtual Load();
+	void virtual Draw();
 	int  m_nLevelWidth;
 	int  m_nLevelHeight;
-	int* m_level;
-	std::vector<Cell*> m_levelMap;
-	std::vector<Bullet*> m_bullets;
-	void DrawLevel();
-	Cell* getRelativePositionInLevel(Entity* entity);
-	void addBullet();
-	void update();
-	void initializeEnemies();
-	enum 
-	{
-		CELL_PATH_N = 0x01, //1
-		CELL_PATH_E = 0x02, //2
-		CELL_PATH_S = 0x04, //4
-		CELL_PATH_W = 0x08, //8
-		CELL_VISITED = 0x10, //16
-	};
+	void virtual Update();
+	void SetLevelType(LevelType _levelType);
+	LevelType GetLevelType();
 private:
 	std::unordered_map<string, std::variant<std::vector<Entity*>*, Entity*>> m_entities;
-	int  m_nVisitedCells;
-	stack<pair<int, int>> m_stack;	// (x, y) coordinate pairs
-	int  m_nPathWidth;
+	LevelType m_levelType;
 };
 

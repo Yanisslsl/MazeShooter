@@ -9,6 +9,6 @@ class Enemy : public Entity
 public:
 	Enemy(const Vec2f& _position);
 	virtual ~Enemy() = default;
-	void moveEnemy();
+	void MoveEnemy();
 	int Enemy::GetAvailablesPaths();
 };

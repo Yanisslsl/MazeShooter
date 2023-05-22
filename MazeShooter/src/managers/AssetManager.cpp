@@ -70,10 +70,7 @@ sf::Texture* AssetManager::GetTexture(const std::string& _assetId)
 	{
 		return m_textures.at(_assetId);
 	}
-	else
-	{
-		return nullptr;
-	}
+	return nullptr;
 }
 
 sf::Font* AssetManager::GetFont(const std::string& _assetId)
@@ -82,8 +79,5 @@ sf::Font* AssetManager::GetFont(const std::string& _assetId)
 	{
 		return m_fonts.at(_assetId);
 	}
-	else
-	{
-		return nullptr;
-	}
+	return nullptr;
 }

@@ -2,9 +2,8 @@
 #include "../../include/managers/AssetManager.h"
 #include "../../include/utils/Vector2.h"
 #include "../../include/models/Player.h"
-#include "../../include/managers/LevelManager.h"
 #include "../../include/managers/WindowManager.h"
-#include "../../include/core/EventDispatcher.h"
+#include "../../include/core/Eventdispatcher.h"
 #define ASSETS_PATH "assets/"
 
 InputManager* InputManager::m_instance = nullptr;
@@ -26,17 +25,32 @@ InputManager::~InputManager()
 
 InputManager::InputManager() = default;
 
-void InputManager::update(sf::Keyboard::Key key) {
-		Vec2f acceleration;
-		const auto dispatcher = EventDispatcher::GetInstance();
-		Player* player = LevelManager::GetInstance()->getCurrent()->getPlayer();
-		Level* level = LevelManager::GetInstance()->getCurrent();
-		auto window = WindowManager::GetInstance()->GetWindow();
-		float rotation = 90;
-		dispatcher->dispatch(Event::EventType::INPUT_PLAYER, { key });
+void InputManager::Update(sf::Keyboard::Key key) {
+		const auto dispatcher = Eventdispatcher::GetInstance();
+		dispatcher->Dispatch(Event::EventType::INPUT_PLAYER, Event::InputEvent(key));
 		if(key == sf::Keyboard::Key::Space)
 		{
-			dispatcher->dispatch(Event::EventType::INPUT_BULLET, { key });
+			dispatcher->Dispatch(Event::EventType::INPUT_BULLET, Event::InputEvent(key));
 		}
 }
 
+
+void InputManager::HandleEvent(sf::Event event)
+{
+	const auto dispatcher = Eventdispatcher::GetInstance();
+
+	switch (event.type)
+	{
+		case sf::Event::Closed:
+			WindowManager::GetInstance()->GetWindow()->close();
+			break;
+		case sf::Event::KeyPressed:
+			Update(event.key.code);
+			break;
+		case sf::Event::MouseButtonReleased:
+			dispatcher->Dispatch(Event::EventType::MOUSE_CLICKED, Event::MouseEvent(Vec2f(event.mouseButton.x, event.mouseButton.y)));
+			break;
+		default:
+			break;
+	}
+}

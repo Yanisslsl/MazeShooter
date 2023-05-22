@@ -1,8 +1,10 @@
 #include "../../include/managers/GameManager.h"
 #include "../../include/managers/WindowManager.h"
 #include "../../include/managers/AssetManager.h"
-#include "../../include/managers/LevelManager.h"
 #include "../../include/managers/InputManager.h"
+#include "../../include/models/Scene.h"
+#include "../../include/models/MazeLevel.h"
+#include "../../include/models/MenuLevel.h"
 #include "../../include/utils/Vector2.h"
 #include <iostream>
 
@@ -20,8 +22,20 @@ GameManager* GameManager::GetInstance()
 
 GameManager::GameManager()
 {
+	InitializeScenes();
 }
 
+void GameManager::InitializeScenes()
+{
+	Scene* scene = new Scene();
+	const auto menuLevel = new MenuLevel(40, 20, Level::LevelType::MainMenu);
+	const auto mazeLevel = new MazeLevel(40, 20, Level::LevelType::Maze);
+	scene->AddLevel(menuLevel);
+	scene->AddLevel(mazeLevel);
+	scene->SetCurrentLevel(mazeLevel);
+	AddScene(scene);
+	SetCurrentScene(scene);
+}
 GameManager::~GameManager()
 {
 	if (m_instance != nullptr)
@@ -30,19 +44,17 @@ GameManager::~GameManager()
 	}
 }
 
-float GameManager::getDeltaTime()
+float GameManager::GetDeltaTime()
 {
 	return m_deltaTime;
 }
 
 bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 {
-	// MANAGE RESOURCES
 	bool success = LoadResources();
 	if (!success)
 		return false;
 
-	// MANAGE WINDOW
 	WindowManager* windowManager = WindowManager::GetInstance();
 	if (windowManager == nullptr)
 		return false;
@@ -54,43 +66,26 @@ bool GameManager::Run(const std::string& _title, const Vec2i& _size)
 		return false;
 	}
 
-	// MANAGE LEVELS
-	LevelManager* levelManager = LevelManager::GetInstance();
-	if (levelManager == nullptr)
-		return false;
-	levelManager->Load();
 
 	InputManager* inputManager = InputManager::GetInstance();
 
 	
 	sf::View view(sf::FloatRect(0.f, 0.f, _size.x, _size.y));
 	sf::Clock deltaTime;
-	// made for initiliaze mLevelMap to avoid empty pointers on vectors due to the moving of the enemies on game start
-	// //TODO update with level draw or encapsulate initilization of levelMap
-	levelManager->RenderLevel(*window);
-	levelManager->getCurrent()->InitializeEntities();
 
+	GetCurrentScene()->Load();
 
-
-	// GAME LOOP
 	while (window->isOpen())
 	{
 		m_deltaTime = deltaTime.restart().asSeconds();
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
-			switch (event.type)
-			{
-				case sf::Event::Closed:
-					window->close();
-					break;
-				case sf::Event::KeyPressed:
-					inputManager->update(event.key.code);
-			}
+			inputManager->HandleEvent(event);
 		}
-		levelManager->getCurrent()->update();
-		window->setView(view);
-		levelManager->RenderLevel(*window);
+
+		GetCurrentScene()->Update();
+		GetCurrentScene()->Render();
 		window->display();
 	}
 
@@ -102,13 +97,12 @@ bool GameManager::LoadResources()
 	bool success = true;
 	AssetManager* assetManager = AssetManager::GetInstance();
 
-	// Load fonts
-	//success &= assetManager->LoadFont("arial.ttf", "arial");
+	success &= assetManager->LoadFont("arial.ttf", "arial");
 
-	// Load textures
 	success &= assetManager->LoadTexture("idle.png", "player");
 	success &= assetManager->LoadTexture("bullet.png", "bullet");
 	success &= assetManager->LoadTexture("enemy.png", "enemy");
+	success &= assetManager->LoadTexture("menu-background.png", "background");
 
 
 	if (success)
@@ -122,4 +116,44 @@ bool GameManager::LoadResources()
 	}
 
 	return true;
+}
+
+void GameManager::Quit()
+{
+	WindowManager* windowManager = WindowManager::GetInstance();
+	if (windowManager != nullptr)
+	{
+		sf::RenderWindow* window = windowManager->GetWindow();
+		if (window != nullptr)
+		{
+			window->close();
+		}
+	}
+}
+
+void GameManager::AddScene(Scene* _scene)
+{
+	m_scenes.push_back(_scene);
+}
+
+Scene* GameManager::GetCurrentScene()
+{
+	if(m_currentScene == nullptr)
+	{
+		m_currentScene = m_scenes[0];
+	}
+	return m_currentScene;
+}
+
+void GameManager::SetCurrentScene(Scene* _scene)
+{
+	auto it = std::find((m_scenes).begin(), (m_scenes).end(), _scene);
+	if(it != m_scenes.end())
+	{
+		m_currentScene = _scene;
+	} else
+	{
+		AddScene(_scene);
+		m_currentScene = _scene;
+	}
 }

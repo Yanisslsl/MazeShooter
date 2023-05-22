@@ -1,9 +1,6 @@
 #pragma once
-
-#include <string>;
 #include "../models/Level.h"
-#include <vector>
-#include <functional>
+
 
 class InputManager
 {
@@ -12,8 +9,8 @@ public:
 	InputManager(InputManager& _other) = delete;
 	void operator=(const InputManager& _other) = delete;
 	static InputManager* GetInstance();
-	void update(sf::Keyboard::Key key);
-	
+	void Update(sf::Keyboard::Key key);
+	void HandleEvent(sf::Event event);
 private:
 	InputManager();
 	static InputManager* m_instance;

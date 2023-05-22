@@ -3,7 +3,8 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include "../utils/Vector2.h"
-
+#include "Collider.h"
+class Collider;
 class Entity
 {
 public:
@@ -30,16 +31,23 @@ public:
 	float GetRotation();
 	void SetRotation(float angle);
 	void SetSize(const Vec2f& _size);
-	bool isInSameCell(const Vec2f& position, int padding);
-	bool checkCollision(const Vec2f& position, float rotation, int padding);
+	bool IsInSameCell(const Vec2f& position, int padding);
+	bool CheckCollision(const Vec2f& position, float rotation, int padding);
 	Vec2f GetSize();
 	void SetDirection(Direction direction);
 	Direction GetDirection();
 	void SetType(EntityType type);
 	EntityType GetType();
 	Vec2f m_velocity;
-	void updateMovement(const Vec2f& acceleration, float rotation);
-	void move(const Vec2f postition, float rotation);
+	void UpdateMovement(const Vec2f& acceleration, float rotation);
+	void Move(const Vec2f postition, float rotation);
+	void SetCollider(Collider* m_collider);
+	Collider* GetCollider();
+	void SetHealth(float health);
+	float GetHealth();
+	void takeDamage(float damage);
+	void SetUuid(float _uuid);
+	float GetUuid();
 private:
 	sf::Sprite* m_sprite;
 	Vec2f m_spriteSize;
@@ -50,4 +58,9 @@ private:
 	Direction m_direction;
 	// TODO change to getters/setters
 	float m_acceleration;
+	float m_health;
+	Collider* m_collider;
+	sf::Clock damageTimer;
+	const sf::Time damageCooldown = sf::seconds(1.0f);
+	float uuid;
 };

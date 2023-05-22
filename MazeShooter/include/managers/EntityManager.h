@@ -6,8 +6,6 @@
 #include <SFML/Graphics.hpp>
 #include <variant>
 #include <unordered_map>
-#include <iostream>
-#include <stack>
 #include "../../include/models/Entity.h"
 #include "../../include/models/Player.h"
 #include "../../include/models/Bullet.h"
@@ -29,12 +27,15 @@ public:
 		ENEMY,
 		BULLET,
 	};
-	Entity* createEntity(EntityType type, Vec2f position, float rotation);
-	Player* createPlayer();
-	Bullet* createBullet(Vec2f playerPosition, float rotation);
-	Enemy* createEnemy(Vec2f playerPosition, float rotation);
-	Player* getPlayer();
+	Entity* CreateEntity(EntityType type, Vec2f position, float rotation);
+	Player* CreatePlayer();
+	Bullet* CreateBullet(Vec2f playerPosition, float rotation);
+	Enemy* CreateEnemy(Vec2f playerPosition, float rotation);
+	Player* GetPlayer();
+	void SetCollider(Entity* m_entity, Vec2f _size);
 	void DestroyBullet(Entity* entity);
+	void DestroyEnemy(Entity* entity);
+	void DestroyPlayer();
 	std::unordered_map<string, std::variant<std::vector<Entity*>*, Entity*>> getEntities();
 private:
 	EntityManager();
