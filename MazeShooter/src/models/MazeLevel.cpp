@@ -31,6 +31,7 @@ void MazeLevel::InitializeEntities()  {
 
 void MazeLevel::Load()
 {
+	EntityManager::GetInstance()->CleanAll();
 	auto offset = [&](int x, int y)
 	{
 		return (m_stack.top().second + y) * m_nLevelWidth + (m_stack.top().first + x);
@@ -191,14 +192,16 @@ void MazeLevel::Draw() {
 }
 
 MazeLevel::Cell* MazeLevel::GetRelativePositionInLevel(Entity* entity) {
+	Cell* cell = new Cell();
 	auto playerPos = entity->GetPosition();
 
 	auto x = floor(playerPos.x / (1600 / 40));
 	auto y = floor(playerPos.y / (800 / 20));
 
+	if(const std::size_t i = y * m_nLevelWidth + x; i > 0 && i < m_levelMap.size())
+		cell = m_levelMap.at(i);
 
-	auto d = m_levelMap.at(y * m_nLevelWidth + x);
-	return d;
+	return cell;
 }
 
 void MazeLevel::Update()
@@ -235,7 +238,7 @@ void MazeLevel::Update()
 void MazeLevel::initializeEnemies()
 {
 
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		const auto randomCell = m_levelMap.at(rand() % m_levelMap.size());
 		EntityManager::GetInstance()->CreateEnemy(Vec2f(randomCell->currentLocation.x + 10, randomCell->currentLocation.y + 10), 0);

@@ -1,6 +1,5 @@
 #include "../../include/models/Scene.h"
 #include "../../include/managers/UIManager.h"
-#include "../../include/managers/WindowManager.h"
 #include "../../include/models/Level.h"
 
 Scene::Scene()

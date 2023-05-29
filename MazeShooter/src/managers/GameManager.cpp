@@ -32,7 +32,7 @@ void GameManager::InitializeScenes()
 	const auto mazeLevel = new MazeLevel(40, 20, Level::LevelType::Maze);
 	scene->AddLevel(menuLevel);
 	scene->AddLevel(mazeLevel);
-	scene->SetCurrentLevel(mazeLevel);
+	scene->SetCurrentLevel(menuLevel);
 	AddScene(scene);
 	SetCurrentScene(scene);
 }

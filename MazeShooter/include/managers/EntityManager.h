@@ -36,6 +36,7 @@ public:
 	void DestroyBullet(Entity* entity);
 	void DestroyEnemy(Entity* entity);
 	void DestroyPlayer();
+	void CleanAll();
 	std::unordered_map<string, std::variant<std::vector<Entity*>*, Entity*>> getEntities();
 private:
 	EntityManager();

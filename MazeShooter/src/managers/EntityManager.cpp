@@ -34,7 +34,7 @@ Entity* EntityManager::CreateEntity(EntityManager::EntityType type, Vec2f positi
 	{
 		case EntityManager::PLAYER:
 		{
-			const auto player = new Player(Vec2f(1500, 730));
+			const auto player = new Player(Vec2f(1260, 700));
 			player->SetSize(Vec2f(1.0f, 1.0f));
 			player->SetType(Entity::EntityType::PLAYER);
 			SetCollider(player, Vec2f(30, 30));	
@@ -142,5 +142,34 @@ void EntityManager::DestroyPlayer()
 	if (auto pPlayer = std::get_if<Entity*>(&m_entities["player"]))
 	{
 		delete *pPlayer;
+	}
+}
+
+
+void EntityManager::CleanAll()
+{
+	if (auto pPlayer = std::get_if<Entity*>(&m_entities["player"]))
+	{
+		delete* pPlayer;
+	}
+
+	auto pVecBullets = std::get_if<std::vector<Entity*>*>(&m_entities["bullets"]);
+	if (pVecBullets)
+	{
+		for (auto& bullet : **pVecBullets)
+		{
+			delete bullet;
+		}
+		(*pVecBullets)->clear(); // Vide le vecteur "bullets"
+	}
+
+	auto pVecEnemies = std::get_if<std::vector<Entity*>*>(&m_entities["enemies"]);
+	if (pVecEnemies)
+	{
+		for (auto& enemy : **pVecEnemies)
+		{
+			delete enemy;
+		}
+		(*pVecEnemies)->clear(); // Vide le vecteur "enemies"
 	}
 }
